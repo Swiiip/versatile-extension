@@ -1,0 +1,26 @@
+{
+    "name": "versatile",
+    "displayName": "versatile",
+    "description": "Handle versatile language in Visual Studio Code",
+    "version": "0.0.1",
+    "publisher": "tbd",
+    "engines": {
+        "vscode": "^1.5.0"
+    },
+    "categories": [
+        "Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "versatile",
+            "aliases": ["Versatile", "versatile"],
+            "extensions": [".config"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "versatile",
+            "scopeName": "source.versatile",
+            "path": "./syntaxes/versatile.tmLanguage.json"
+        }]
+    }
+}
