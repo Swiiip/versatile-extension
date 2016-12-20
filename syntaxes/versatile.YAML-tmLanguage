@@ -1,0 +1,72 @@
+# [PackageDev] target_format: json, ext: json
+---
+name: Versatile
+scopeName: source.versatile
+fileTypes: [.config]
+uuid: 5f4ef975-8f06-40c7-a78c-a6e7820644a3
+
+patterns:
+- include: "#core-patterns"
+- include: '#inner-brackets'
+- include: '#inner-parenthesis'
+- include: '#strings'
+
+repository:
+  core-patterns:
+    patterns:
+    - include: '#comments'
+    - include: '#parameter'
+    - include: '#numbers'
+  
+  comments:
+    patterns:
+      - name: comment.line.number-sign.versatile
+        match: \#.*
+  
+  strings:
+    name: string.quoted.other.versatile
+    begin: \"
+    end: \"
+    patterns:
+      - include: "core-patterns"
+  
+  numbers:
+    name: constant.numeric.versatile
+    match: \d+
+  
+  parameter:
+    name: variable.parameter.versatile
+    match: \$\w+
+  
+  inner-brackets:
+    name: meta.inner-brackets.versatile
+    begin: \[
+    beginCaptures:
+      '0': {name: keyword.control.list.opening-bracket.versatile}
+    end: \]
+    endCaptures:
+      '0': {name: keyword.control.list.closing-bracket.versatile}
+    patterns:
+    - include: '#inner-brackets'
+    - include: '#inner-parenthesis'
+    - include: '#core-patterns'
+
+  inner-parenthesis:
+    name: meta.inner-parenthesis.versatile
+    begin: \(
+    beginCaptures:
+      '0': {name: keyword.control.list.opening-bracket.versatile}
+    end: \)
+    endCaptures:
+      '0': {name: keyword.control.list.closing-bracket.versatile}
+    patterns:
+    - include: '#inner-parenthesis'
+    - include: '#inner-brackets'
+    - include: '#core-patterns'
+
+  functions:
+    match: (\w+)\(
+    captures:
+      '0': {name: entity.name.function.versatile}
+    
+...

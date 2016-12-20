@@ -20,7 +20,7 @@
         "grammars": [{
             "language": "versatile",
             "scopeName": "source.versatile",
-            "path": "./syntaxes/versatile.tmLanguage.yaml"
+            "path": "./syntaxes/versatile.json"
         }]
     }
 }

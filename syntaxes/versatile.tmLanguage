@@ -1,0 +1,23 @@
+{
+    "patterns": [
+        {
+            "include": "#comment"
+        }
+    ], 
+    "name": "Versatile", 
+    "scopeName": "source.versatile", 
+    "fileTypes": [
+        "config"
+    ], 
+    "uuid": "5f4ef975-8f06-40c7-a78c-a6e7820644a3", 
+    "repository": {
+        "comment": {
+            "patterns": [
+                {
+                    "match": "\\\\#.*", 
+                    "name": "comment.line.number-sign.versatile"
+                }
+            ]
+        }
+    }
+}
