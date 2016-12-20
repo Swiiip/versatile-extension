@@ -1,13 +1,14 @@
 {
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"name": "Versatile",
+	"fileTypes": [
+		".config"
+	],
 	"patterns": [
-		{
-			"include": "#keywords"
-		},
-		{
-			"include": "#strings"
-		}
+		{"include": "#strings"},
+		{"include": "#comment"},
+		{"include": "#keywords"},
+		{"include": "#arrays"}
 	],
 	"repository": {
 		"keywords": {
@@ -26,6 +27,27 @@
 					"match": "\\\\."
 				}
 			]
+		},
+		"comment": {
+			"patterns": [{
+				"name": "comment.line.number-sign.versatile",
+				"match": "\\#.*"
+			}]
+		},
+		"arrays": {
+			"begin": "\\[",
+			"end": "(?=\\])",
+			"patterns": [
+				{
+					"include": "#item-index"
+				}
+			]
+		},
+		"item-index": {
+			"patterns": [{
+				"name": "variable.other.versatile",
+				"match": "\\$.*(?=\\])"
+			}]
 		}
 	},
 	"scopeName": "source.versatile"

@@ -1,0 +1,36 @@
+---
+"$schema": https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json
+name: Versatile
+fileTypes:
+- ".config"
+patterns:
+- include: "#strings"
+- include: "#comment"
+- include: "#keywords"
+- include: "#arrays"
+repository:
+  keywords:
+    patterns:
+    - name: keyword.control.versatile
+      match: "\\b(if|while|for|return)\\b"
+  strings:
+    name: string.quoted.double.versatile
+    begin: "\""
+    end: "\""
+    patterns:
+    - name: constant.character.escape.versatile
+      match: "\\\\."
+  comment:
+    patterns:
+    - name: comment.line.number-sign.versatile
+      match: "\\#.*"
+  arrays:
+    begin: "\\["
+    end: "(?=\\])"
+    patterns:
+    - include: "#item-index"
+  item-index:
+    patterns:
+    - name: variable.other.versatile
+      match: "\\$.*(?=\\])"
+scopeName: source.versatile
