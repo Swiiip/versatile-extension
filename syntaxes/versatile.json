@@ -1,195 +1,205 @@
 {
-    "keyEquivalent": "^~J", 
-    "name": "Versatile", 
-    "scopeName": "source.versatile", 
-    "uuid": "8f97457b-516e-48ce-83c7-08ae12fb327a", 
     "repository": {
-        "constant": {
-            "match": "\\b(?:true|false|null)\\b", 
-            "name": "constant.language.versatile"
+        "string": {
+            "name": "string.quoted.double.versatile", 
+            "begin": "\\\\\\\"", 
+            "end": "\\\\\\\""
         }, 
-        "object": {
+        "variable": {
+            "match": "([_$[:alpha:]][_$[:alnum:]]*)", 
+            "captures": {
+                "1": {
+                    "name": "variable.other.versatile"
+                }
+            }, 
             "patterns": [
                 {
-                    "comment": "the versatile object key", 
-                    "include": "#string"
+                    "include": "#index-var"
                 }, 
                 {
                     "include": "#comments"
-                }, 
-                {
-                    "patterns": [
-                        {
-                            "comment": "the versatile object value", 
-                            "include": "#value"
-                        }, 
-                        {
-                            "match": "[^\\s,]", 
-                            "name": "invalid.illegal.expected-dictionary-separator.versatile"
-                        }
-                    ], 
-                    "begin": ":", 
-                    "endCaptures": {
-                        "1": {
-                            "name": "punctuation.separator.dictionary.pair.versatile"
-                        }
-                    }, 
-                    "end": "(,)|(?=\\})", 
-                    "name": "meta.structure.dictionary.value.versatile", 
-                    "beginCaptures": {
-                        "0": {
-                            "name": "punctuation.separator.dictionary.key-value.versatile"
-                        }
-                    }
-                }, 
-                {
-                    "match": "[^\\s\\}]", 
-                    "name": "invalid.illegal.expected-dictionary-separator.versatile"
-                }
-            ], 
-            "begin": "\\{", 
-            "endCaptures": {
-                "0": {
-                    "name": "punctuation.definition.dictionary.end.versatile"
-                }
-            }, 
-            "end": "\\}", 
-            "name": "meta.structure.dictionary.versatile", 
-            "beginCaptures": {
-                "0": {
-                    "name": "punctuation.definition.dictionary.begin.versatile"
-                }
-            }
-        }, 
-        "comments": {
-            "patterns": [
-                {
-                    "captures": {
-                        "0": {
-                            "name": "punctuation.definition.comment.versatile"
-                        }
-                    }, 
-                    "begin": "/\\*\\*", 
-                    "end": "\\*/", 
-                    "name": "comment.block.documentation.versatile"
-                }, 
-                {
-                    "captures": {
-                        "0": {
-                            "name": "punctuation.definition.comment.versatile"
-                        }
-                    }, 
-                    "begin": "/\\*", 
-                    "end": "\\*/", 
-                    "name": "comment.block.versatile"
-                }, 
-                {
-                    "captures": {
-                        "1": {
-                            "name": "punctuation.definition.comment.versatile"
-                        }
-                    }, 
-                    "match": "(//).*$\\n?", 
-                    "name": "comment.line.double-slash.js"
                 }
             ]
         }, 
-        "number": {
-            "match": "(?x)        # turn on extended mode\n  -?        # an optional minus\n  (?:\n    0       # a zero\n    |       # ...or...\n    [1-9]   # a 1-9 character\n    \\d*     # followed by zero or more digits\n  )\n  (?:\n    (?:\n      \\.    # a period\n      \\d+   # followed by one or more digits\n    )?\n    (?:\n      [eE]  # an e character\n      [+-]? # followed by an option +/-\n      \\d+   # followed by one or more digits\n    )?      # make exponent optional\n  )?        # make decimal portion optional", 
-            "name": "constant.numeric.versatile"
-        }, 
-        "string": {
+        "object": {
+            "name": "meta.object.versatile", 
+            "begin": "\\{", 
+            "end": "\\}", 
             "patterns": [
                 {
-                    "match": "(?x)                # turn on extended mode\n  \\\\                # a literal backslash\n  (?:               # ...followed by...\n    [\"\\\\/bfnrt]     # one of these characters\n    |               # ...or...\n    u               # a u\n    [0-9a-fA-F]{4}) # and four hex digits", 
-                    "name": "constant.character.escape.versatile"
+                    "include": "#dialect-line"
+                }
+            ]
+        }, 
+        "dialects": {
+            "name": "meta.dialect.versatile", 
+            "begin": "(Decoder|Encoder)\\.(Versatile|VersatileReport)\\.(Dialect)\\s*:\\s*\\\"", 
+            "end": "\\\"", 
+            "patterns": [
+                {
+                    "include": "#dialect-line"
                 }, 
                 {
-                    "match": "\\\\.", 
-                    "name": "invalid.illegal.unrecognized-string-escape.versatile"
+                    "include": "#comments"
                 }
             ], 
-            "begin": "\"", 
-            "endCaptures": {
-                "0": {
-                    "name": "punctuation.definition.string.end.versatile"
-                }
-            }, 
-            "end": "\"", 
-            "name": "string.quoted.double.versatile", 
             "beginCaptures": {
-                "0": {
-                    "name": "punctuation.definition.string.begin.versatile"
+                "2": {
+                    "name": "meta.type.versatile"
+                }, 
+                "3": {
+                    "name": "variable.language.versatile"
+                }, 
+                "1": {
+                    "name": "meta.descriptor.versatile"
                 }
             }
         }, 
-        "value": {
+        "numbers": {
+            "name": "constant.numeric.versatile", 
+            "match": "\\d"
+        }, 
+        "comments": {
+            "name": "comment.line.number-sign.versatile", 
+            "match": "\\#.*"
+        }, 
+        "property": {
+            "name": "meta.property.versatile", 
+            "match": "\\.([_$[:alpha:]][_$[:alnum:]]*)", 
+            "captures": {
+                "1": {
+                    "name": "variable.other.versatile"
+                }
+            }
+        }, 
+        "dialect-value": {
+            "name": "meta.dialect.value.versatile", 
+            "match": "(?:\\=\\s*)([_$\\]\\.\\[[:alnum:]]*)", 
             "patterns": [
                 {
-                    "include": "#constant"
+                    "include": "#index-var"
                 }, 
                 {
-                    "include": "#number"
+                    "include": "#comments"
+                }
+            ]
+        }, 
+        "index-var": {
+            "name": "meta.index.var.versatile", 
+            "match": "(\\$[:alnum])", 
+            "captures": {
+                "1": {
+                    "name": "comment.line.versatile"
+                }
+            }
+        }, 
+        "dialect-line": {
+            "name": "meta.dialect-line.versatile", 
+            "match": "(.*)\\=(.*)", 
+            "captures": {
+                "2": {
+                    "name": "meta.dialect.value", 
+                    "patterns": [
+                        {
+                            "include": "#core-patterns"
+                        }
+                    ]
                 }, 
+                "1": {
+                    "name": "variable.parameter.versatile"
+                }
+            }
+        }, 
+        "function": {
+            "match": "([_$[:alpha:]][_$[:alnum:]]*)\\(([^\\)]*)\\)(\\.?+)", 
+            "captures": {
+                "2": {
+                    "name": "meta.function.parameters", 
+                    "patterns": [
+                        {
+                            "include": "#core-patterns"
+                        }
+                    ]
+                }, 
+                "3": {
+                    "patterns": [
+                        {
+                            "include": "#core-patterns"
+                        }
+                    ]
+                }, 
+                "1": {
+                    "name": "entity.name.function.versatile"
+                }
+            }
+        }, 
+        "array": {
+            "match": "([_$[:alpha:]][_$[:alnum:]]*)\\[([^\\].]*)\\](\\.?+)", 
+            "captures": {
+                "2": {
+                    "name": "meta.array-index.versatile", 
+                    "patterns": [
+                        {
+                            "include": "#core-patterns"
+                        }
+                    ]
+                }, 
+                "3": {
+                    "patterns": [
+                        {
+                            "include": "#core-patterns"
+                        }
+                    ]
+                }, 
+                "1": {
+                    "name": "meta.array-name.versatile"
+                }
+            }
+        }, 
+        "core-patterns": {
+            "patterns": [
                 {
-                    "include": "#string"
+                    "include": "#function"
                 }, 
                 {
                     "include": "#array"
                 }, 
                 {
-                    "include": "#object"
+                    "include": "#property"
+                }, 
+                {
+                    "include": "#array"
+                }, 
+                {
+                    "include": "#numbers"
+                }, 
+                {
+                    "include": "#variable"
+                }, 
+                {
+                    "include": "#string"
                 }, 
                 {
                     "include": "#comments"
                 }
             ]
-        }, 
-        "array": {
-            "patterns": [
-                {
-                    "include": "#value"
-                }, 
-                {
-                    "match": ",", 
-                    "name": "punctuation.separator.array.versatile"
-                }, 
-                {
-                    "match": "[^\\s\\]]", 
-                    "name": "invalid.illegal.expected-array-separator.versatile"
-                }
-            ], 
-            "begin": "\\[", 
-            "endCaptures": {
-                "0": {
-                    "name": "punctuation.definition.array.end.versatile"
-                }
-            }, 
-            "end": "\\]", 
-            "name": "meta.structure.array.versatile", 
-            "beginCaptures": {
-                "0": {
-                    "name": "punctuation.definition.array.begin.versatile"
-                }
-            }
         }
     }, 
+    "scopeName": "source.versatile", 
+    "name": "Versatile", 
+    "uuid": "5f4ef975-8f06-40c7-a78c-a6e7820644a3", 
     "patterns": [
         {
-            "include": "#value"
+            "include": "#dialects"
+        }, 
+        {
+            "include": "#numbers"
+        }, 
+        {
+            "include": "#comments"
         }
     ], 
     "fileTypes": [
-        "versatile", 
-        "sublime-settings", 
-        "sublime-menu", 
-        "sublime-keymap", 
-        "sublime-mousemap", 
-        "sublime-theme", 
-        "sublime-build", 
-        "sublime-project", 
-        "sublime-completions"
-    ], 
-    "foldingStartMarker": "(?x)       # turn on extended mode\n  ^        # a line beginning with\n  \\s*      # some optional space\n  [{\\[]    # the start of an object or array\n  (?!      # but not followed by\n    .*     # whatever\n    [}\\]]  # and the close of an object or array\n    ,?     # an optional comma\n    \\s*    # some optional space\n    $      # at the end of the line\n  )\n  |        # ...or...\n  [{\\[]    # the start of an object or array\n  \\s*      # some optional space\n  $        # at the end of the line", 
-    "foldingStopMarker": "(?x)     # turn on extended mode\n  ^      # a line beginning with\n  \\s*    # some optional space\n  [}\\]]  # and the close of an object or array"
+        ".config"
+    ]
 }

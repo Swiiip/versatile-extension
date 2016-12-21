@@ -6,67 +6,112 @@ fileTypes: [.config]
 uuid: 5f4ef975-8f06-40c7-a78c-a6e7820644a3
 
 patterns:
-- include: "#core-patterns"
-- include: '#inner-brackets'
-- include: '#inner-parenthesis'
-- include: '#strings'
-
+- include: '#dialects'
+- include: '#numbers'
+- include: '#comments'
 repository:
-  core-patterns:
-    patterns:
-    - include: '#comments'
-    - include: '#parameter'
-    - include: '#numbers'
-  
-  comments:
-    patterns:
-      - name: comment.line.number-sign.versatile
-        match: \#.*
-  
-  strings:
-    name: string.quoted.other.versatile
-    begin: \"
+  dialects:
+    name: meta.dialect.versatile
+    begin: (Decoder|Encoder)\.(Versatile|VersatileReport)\.(Dialect)\s*:\s*\"
+    beginCaptures:
+      "1": {name: meta.descriptor.versatile}
+      "2": {name: meta.type.versatile}
+      "3": {name: variable.language.versatile}
     end: \"
     patterns:
-      - include: "core-patterns"
-  
+    - include: '#dialect-line'
+    - include: '#comments'
+
+  dialect-line:
+    name: meta.dialect-line.versatile
+    match: (.*)\=(.*)
+    captures:
+      "1": {name: variable.parameter.versatile}
+      "2": 
+        name: meta.dialect.value
+        patterns:
+        - include: '#core-patterns'
+
+  dialect-value:
+    name: meta.dialect.value.versatile
+    match: (?:\=\s*)([_$\]\.\[[:alnum:]]*)
+    patterns:
+    - include: '#index-var'
+    - include: '#comments'
+
+  index-var:
+    name: meta.index.var.versatile
+    match: (\$[:alnum])
+    captures:
+      "1": {name: comment.line.versatile}
+
+  object:
+    name: meta.object.versatile
+    begin: \{
+    end: \}
+    patterns:
+    - include: '#dialect-line'
+
   numbers:
     name: constant.numeric.versatile
-    match: \d+
-  
-  parameter:
-    name: variable.parameter.versatile
-    match: \$\w+
-  
-  inner-brackets:
-    name: meta.inner-brackets.versatile
-    begin: \[
-    beginCaptures:
-      '0': {name: keyword.control.list.opening-bracket.versatile}
-    end: \]
-    endCaptures:
-      '0': {name: keyword.control.list.closing-bracket.versatile}
-    patterns:
-    - include: '#inner-brackets'
-    - include: '#inner-parenthesis'
-    - include: '#core-patterns'
+    match: \d
 
-  inner-parenthesis:
-    name: meta.inner-parenthesis.versatile
-    begin: \(
-    beginCaptures:
-      '0': {name: keyword.control.list.opening-bracket.versatile}
-    end: \)
-    endCaptures:
-      '0': {name: keyword.control.list.closing-bracket.versatile}
-    patterns:
-    - include: '#inner-parenthesis'
-    - include: '#inner-brackets'
-    - include: '#core-patterns'
+  comments:
+    name: comment.line.number-sign.versatile
+    match: \#.*
 
-  functions:
-    match: (\w+)\(
+  variable: 
+    match: ([_$[:alpha:]][_$[:alnum:]]*)
     captures:
-      '0': {name: entity.name.function.versatile}
-    
+      "1": {name: variable.other.versatile}
+    patterns:
+    - include: '#index-var'
+    - include: '#comments'
+
+  function:
+    match: ([_$[:alpha:]][_$[:alnum:]]*)\(([^\)]*)\)(\.?+)
+    captures:
+      "1": {name: entity.name.function.versatile}
+      "2": 
+        name: meta.function.parameters
+        patterns:
+        - include: '#core-patterns'
+      "3": 
+        patterns:
+        - include: '#core-patterns'
+
+  array:
+    match: ([_$[:alpha:]][_$[:alnum:]]*)\[([^\].]*)\](\.?+)
+    captures:
+      "1": {name: meta.array-name.versatile}
+      "2": 
+        name: meta.array-index.versatile
+        patterns:
+        - include: '#core-patterns'
+      "3": 
+        patterns:
+        - include: '#core-patterns'
+
+  string:
+    name: string.quoted.double.versatile
+    begin: \\\"
+    end: \\\"
+
+  property:
+    name: meta.property.versatile 
+    match: \.([_$[:alpha:]][_$[:alnum:]]*)
+    captures:
+      "1": {name: variable.other.versatile}
+
+  core-patterns:
+    patterns:
+    - include: '#function'
+    - include: '#array'
+    - include: '#property'
+    - include: '#array'
+    - include: '#numbers'
+    - include: '#variable'
+    - include: '#string'
+    - include: '#comments'
+
 ...
