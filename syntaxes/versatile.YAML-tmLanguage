@@ -5,52 +5,60 @@ scopeName: source.versatile
 fileTypes: [.config]
 uuid: 5f4ef975-8f06-40c7-a78c-a6e7820644a3
 
+#### Dialects #####
 patterns:
 - include: '#dialects'
-- include: '#numbers'
+- include: '#headers'
 - include: '#comments'
+
 repository:
+  headers:
+    name: meta.headerContent.versatile
+    match: ([^\.]*)(\..*)?.*\s*\:\s*(.*)
+    captures:
+      "1": 
+        name: entity.name.type.versatile
+      "2": 
+        name: entity.other.attribute-name.versatile
+      "3": 
+        name: meta.headerContent.value.versatile
+        patterns:
+          - include: '#header-string'
+          - include: '#numbers'
+          - include: '#booleans'
+          - include: '#comments'
+  header-string:
+    name: string.quoted.double.versatile
+    begin: \"
+    end: \"
   dialects:
     name: meta.dialect.versatile
-    begin: (Decoder|Encoder)\.(Versatile|VersatileReport)\.(Dialect)\s*:\s*\"
+    begin: (Decoder|Encoder)(\.Versatile|VersatileReport)(\.Dialect)\s*(:\s*\")
     beginCaptures:
-      "1": {name: meta.descriptor.versatile}
-      "2": {name: meta.type.versatile}
-      "3": {name: variable.language.versatile}
+      "1": {name: keyword.control.versatile}
+      "2": {name: keyword.control.versatile}
+      "3": {name: keyword.control.versatile}
+      "4": {name: keyword.control.versatile}
     end: \"
+    endCaptures:
+      "0": {name: keyword.control.versatile}
     patterns:
-    - include: '#dialect-line'
-    - include: '#comments'
-
-  dialect-line:
-    name: meta.dialect-line.versatile
-    match: (.*)\=(.*)
-    captures:
-      "1": {name: variable.parameter.versatile}
-      "2": 
-        name: meta.dialect.value
-        patterns:
-        - include: '#core-patterns'
-
-  dialect-value:
-    name: meta.dialect.value.versatile
-    match: (?:\=\s*)([_$\]\.\[[:alnum:]]*)
-    patterns:
-    - include: '#index-var'
+    # - include: '#dialect-line'
+    - include: '#core-patterns'
     - include: '#comments'
 
   index-var:
-    name: meta.index.var.versatile
-    match: (\$[:alnum])
+    name: meta.array.index.versatile
+    match: (\$[_$[:alnum:]]*)
     captures:
-      "1": {name: comment.line.versatile}
+      "1": {name: keyword.control.versatile}
 
   object:
     name: meta.object.versatile
     begin: \{
     end: \}
     patterns:
-    - include: '#dialect-line'
+    - include: '#core-patterns'
 
   numbers:
     name: constant.numeric.versatile
@@ -58,9 +66,10 @@ repository:
 
   comments:
     name: comment.line.number-sign.versatile
-    match: \#.*
+    begin: \#
+    end: \#
 
-  variable: 
+  attribute: 
     match: ([_$[:alpha:]][_$[:alnum:]]*)
     captures:
       "1": {name: variable.other.versatile}
@@ -69,49 +78,50 @@ repository:
     - include: '#comments'
 
   function:
-    match: ([_$[:alpha:]][_$[:alnum:]]*)\(([^\)]*)\)(\.?+)
-    captures:
-      "1": {name: entity.name.function.versatile}
-      "2": 
-        name: meta.function.parameters
-        patterns:
-        - include: '#core-patterns'
-      "3": 
-        patterns:
-        - include: '#core-patterns'
+    begin: (\??[_$[:alpha:]][_$[:alnum:]]*)\s?\(
+    beginCaptures:
+      "1": {name: entity.name.function.versatile}    
+    end: \)
+    contentName: meta.function.parameters
+    patterns:
+    - include: '#core-patterns'
 
   array:
-    match: ([_$[:alpha:]][_$[:alnum:]]*)\[([^\].]*)\](\.?+)
-    captures:
-      "1": {name: meta.array-name.versatile}
-      "2": 
-        name: meta.array-index.versatile
-        patterns:
-        - include: '#core-patterns'
-      "3": 
-        patterns:
-        - include: '#core-patterns'
+    name: meta.array.versatile
+    begin: \.?([_$[:alnum:]]*)?\[
+    beginCaptures:
+      "1": 
+        name: meta.array.name.versatile
+    end: \]
+    patterns:
+    - include: '#core-patterns'
 
-  string:
-    name: string.quoted.double.versatile
+  dialect-string:
+    name: string.interpolated.versatile
     begin: \\\"
     end: \\\"
 
   property:
     name: meta.property.versatile 
-    match: \.([_$[:alpha:]][_$[:alnum:]]*)
+    match: \.([_$[:alnum:]]*)
     captures:
-      "1": {name: variable.other.versatile}
+      "1": {name: entity.other.attribute-name.versatile}
+
+  booleans:
+    name: constant.language.versatile
+    match: true|false
 
   core-patterns:
     patterns:
     - include: '#function'
     - include: '#array'
+    - include: '#object'
     - include: '#property'
-    - include: '#array'
     - include: '#numbers'
-    - include: '#variable'
-    - include: '#string'
+    - include: '#index-var'
+    - include: '#attribute'
+    - include: '#booleans'
+    - include: '#dialect-string'
     - include: '#comments'
 
 ...
