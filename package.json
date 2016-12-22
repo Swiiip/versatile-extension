@@ -1,9 +1,19 @@
 {
     "name": "versatile",
-    "displayName": "versatile",
-    "description": "Handle versatile language in Visual Studio Code",
-    "version": "0.0.1",
-    "publisher": "tbd",
+    "displayName": "Versatile",
+    "description": "Versatile language support",
+    "version": "0.1.0",
+    "publisher": "swiip",
+    "homepage": "https://github.com/Swiiip/versatile-extension/README.md",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Swiiip/versatile-extension.git"
+    },
+    "icon": "criteo-logo.svg",
+    "galleryBanner": {
+        "color": "#5c2d91",
+        "theme": "dark"
+    },
     "engines": {
         "vscode": "^1.5.0"
     },
@@ -11,16 +21,26 @@
         "Languages"
     ],
     "contributes": {
-        "languages": [{
-            "id": "versatile",
-            "aliases": ["Versatile", "versatile"],
-            "extensions": [".config"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "versatile",
-            "scopeName": "source.versatile",
-            "path": "./syntaxes/versatile.json"
-        }]
+        "languages": [
+            {
+                "id": "versatile",
+                "aliases": [
+                    "Versatile",
+                    "versatile"
+                ],
+                "extensions": [
+                    ".config"
+                ],
+                "configuration": "./language-configuration.json",
+                "firstLine": "^([^\\.]*)(\\.[^:]*)?[[:alnum:]]*\\s*\\:\\s*(.*)$"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "versatile",
+                "scopeName": "source.versatile",
+                "path": "./syntaxes/versatile.tmLanguage.json"
+            }
+        ]
     }
 }

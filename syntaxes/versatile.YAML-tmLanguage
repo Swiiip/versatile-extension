@@ -1,4 +1,4 @@
-# [PackageDev] target_format: json, ext: json
+# [PackageDev] target_format: json, ext: tmLanguage.json
 ---
 name: Versatile
 scopeName: source.versatile
@@ -8,7 +8,6 @@ uuid: 5f4ef975-8f06-40c7-a78c-a6e7820644a3
 patterns:
 - include: '#dialects'
 - include: '#headers'
-- include: '#inline-comments'
 - include: '#comments'
 
 repository:

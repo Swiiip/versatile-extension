@@ -1,7 +1,7 @@
 # Change Log
-All notable changes to the "versatile" extension will be documented in this file.
+All notable changes to this project is documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
-- Initial release
+## [0.1.0] - 22 December 2016
+Initial release
+### Added
+- Color syntax for Versatile
