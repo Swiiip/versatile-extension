@@ -8,6 +8,22 @@ This VSCode extension provides a support for Versatile language
 
 ![Demo](https://github.com/Swiiip/versatile-extension/raw/master/demo.gif)
 
+## VSCode Install
+
+Install the Versatile extension from the Marketplace: `ext install Versatile`
+
+Add this line to user settings to automatically colorize text when opening .config files.
+```
+"files.associations": {
+    "*.config": "versatile"
+}
+```
+
+## Sublime text 3 install
+
+Copy `syntaxes/versatile.sublime-syntax` and `syntaxes/versatile.sublime-settings` in your `Packages/User` folder.
+
+
 ## Extension Settings
 
 None
