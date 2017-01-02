@@ -1,14 +1,129 @@
 {
+    "name": "Versatile", 
+    "uuid": "5f4ef975-8f06-40c7-a78c-a6e7820644a3", 
+    "patterns": [
+        {
+            "include": "#dialects"
+        }, 
+        {
+            "include": "#headers"
+        }, 
+        {
+            "include": "#comments"
+        }
+    ], 
     "repository": {
+        "numbers": {
+            "name": "constant.numeric.versatile", 
+            "match": "\\d"
+        }, 
         "comments": {
+            "end": "\\#", 
             "name": "comment.line.number-sign.versatile", 
-            "begin": "\\#", 
-            "end": "\\#"
+            "begin": "\\#"
+        }, 
+        "index-var": {
+            "comment": "index $i to iterate through an array", 
+            "name": "meta.array.index.versatile", 
+            "match": "(\\$[_$[:alnum:]]*)", 
+            "captures": {
+                "1": {
+                    "name": "keyword.control.versatile"
+                }
+            }
+        }, 
+        "array": {
+            "name": "meta.array.versatile", 
+            "patterns": [
+                {
+                    "include": "#core-patterns"
+                }
+            ], 
+            "beginCaptures": {
+                "1": {
+                    "name": "meta.array.name.versatile"
+                }
+            }, 
+            "comment": "array scope, arrayName[.*]", 
+            "end": "\\]", 
+            "begin": "\\.?([_$[:alnum:]]*)?\\["
+        }, 
+        "property": {
+            "comment": ".someProperty", 
+            "name": "meta.property.versatile", 
+            "match": "\\.([_$[:alnum:]]*)", 
+            "captures": {
+                "1": {
+                    "name": "entity.other.attribute-name.versatile"
+                }
+            }
+        }, 
+        "one-line-attribute": {
+            "comment": "hack to color lines of type, attribute = property", 
+            "match": "^\\s*(\\w*)\\s*\\=\\s*(\\w*)\\s*$", 
+            "captures": {
+                "1": {
+                    "name": "variable.other.versatile"
+                }, 
+                "2": {
+                    "name": "entity.other.attribute-name.versatile"
+                }
+            }
+        }, 
+        "attribute": {
+            "comment": "base scope, attribute of an object", 
+            "match": "([_$[:alpha:]][_$[:alnum:]]*)", 
+            "captures": {
+                "1": {
+                    "name": "variable.other.versatile"
+                }
+            }, 
+            "patterns": [
+                {
+                    "include": "#index-var"
+                }, 
+                {
+                    "include": "#comments"
+                }
+            ]
+        }, 
+        "dialects": {
+            "name": "meta.dialect.versatile", 
+            "endCaptures": {
+                "0": {
+                    "name": "entity.other.inherited-class.versatile"
+                }
+            }, 
+            "patterns": [
+                {
+                    "include": "#core-patterns"
+                }, 
+                {
+                    "include": "#comments"
+                }
+            ], 
+            "beginCaptures": {
+                "1": {
+                    "name": "entity.name.type.versatile"
+                }, 
+                "2": {
+                    "name": "entity.other.attribute-name.versatile"
+                }, 
+                "3": {
+                    "name": "entity.name.function.versatile"
+                }, 
+                "4": {
+                    "name": "entity.other.inherited-class.versatile"
+                }
+            }, 
+            "comment": "scope related to dialects (decoder, encoder, ...)", 
+            "end": "\\\"", 
+            "begin": "(Decoder|Encoder)\\.(Versatile|VersatileReport)(\\.Dialect).*\\s*:(\\s*\\\")"
         }, 
         "object": {
+            "comment": "object scope", 
             "name": "meta.object.versatile", 
             "begin": "\\{", 
-            "comment": "object scope", 
             "patterns": [
                 {
                     "include": "#core-patterns"
@@ -16,11 +131,41 @@
             ], 
             "end": "\\}"
         }, 
+        "function": {
+            "patterns": [
+                {
+                    "include": "#core-patterns"
+                }
+            ], 
+            "beginCaptures": {
+                "1": {
+                    "name": "entity.function.name.versatile"
+                }
+            }, 
+            "comment": "functions scope, functionName(.*)", 
+            "end": "\\)", 
+            "begin": "(\\??[_$[:alpha:]][_$[:alnum:]]*)\\s?\\(", 
+            "contentName": "meta.function.parameters"
+        }, 
+        "booleans": {
+            "comment": "true or false", 
+            "name": "constant.language.versatile", 
+            "match": "true|false"
+        }, 
+        "dialect-string": {
+            "comment": "\\\"Comments inside dialect\\\"", 
+            "name": "string.interpolated.versatile", 
+            "begin": "\\\\\\\"", 
+            "end": "\\\\\\\""
+        }, 
         "headers": {
+            "comment": "all lines but the dialect lines", 
             "name": "meta.headerContent.versatile", 
             "match": "([^\\.]*)(\\.[^:]*)?[[:alnum:]]*\\s*\\:\\s*(.*)", 
-            "comment": "all lines but the dialect lines", 
             "captures": {
+                "1": {
+                    "name": "entity.name.type.versatile"
+                }, 
                 "2": {
                     "name": "entity.other.attribute-name.versatile"
                 }, 
@@ -40,101 +185,6 @@
                             "include": "#comments"
                         }
                     ]
-                }, 
-                "1": {
-                    "name": "entity.name.type.versatile"
-                }
-            }
-        }, 
-        "dialect-string": {
-            "name": "string.interpolated.versatile", 
-            "begin": "\\\\\\\"", 
-            "comment": "\\\"Comments inside dialect\\\"", 
-            "end": "\\\\\\\""
-        }, 
-        "attribute": {
-            "match": "([_$[:alpha:]][_$[:alnum:]]*)", 
-            "captures": {
-                "1": {
-                    "name": "variable.other.versatile"
-                }
-            }, 
-            "comment": "base scope, attribute of an object", 
-            "patterns": [
-                {
-                    "include": "#index-var"
-                }, 
-                {
-                    "include": "#comments"
-                }
-            ]
-        }, 
-        "property": {
-            "name": "meta.property.versatile", 
-            "match": "\\.([_$[:alnum:]]*)", 
-            "comment": ".someProperty", 
-            "captures": {
-                "1": {
-                    "name": "entity.other.attribute-name.versatile"
-                }
-            }
-        }, 
-        "dialects": {
-            "begin": "(Decoder|Encoder)\\.(Versatile|VersatileReport)(\\.Dialect).*\\s*:(\\s*\\\")", 
-            "comment": "scope related to dialects (decoder, encoder, ...)", 
-            "name": "meta.dialect.versatile", 
-            "beginCaptures": {
-                "2": {
-                    "name": "entity.other.attribute-name.versatile"
-                }, 
-                "3": {
-                    "name": "entity.name.function.versatile"
-                }, 
-                "1": {
-                    "name": "entity.name.type.versatile"
-                }, 
-                "4": {
-                    "name": "entity.other.inherited-class.versatile"
-                }
-            }, 
-            "patterns": [
-                {
-                    "include": "#core-patterns"
-                }, 
-                {
-                    "include": "#comments"
-                }
-            ], 
-            "endCaptures": {
-                "0": {
-                    "name": "entity.other.inherited-class.versatile"
-                }
-            }, 
-            "end": "\\\""
-        }, 
-        "function": {
-            "begin": "(\\??[_$[:alpha:]][_$[:alnum:]]*)\\s?\\(", 
-            "comment": "functions scope, functionName(.*)", 
-            "contentName": "meta.function.parameters", 
-            "beginCaptures": {
-                "1": {
-                    "name": "entity.function.name.versatile"
-                }
-            }, 
-            "patterns": [
-                {
-                    "include": "#core-patterns"
-                }
-            ], 
-            "end": "\\)"
-        }, 
-        "index-var": {
-            "name": "meta.array.index.versatile", 
-            "match": "(\\$[_$[:alnum:]]*)", 
-            "comment": "index $i to iterate through an array", 
-            "captures": {
-                "1": {
-                    "name": "keyword.control.versatile"
                 }
             }
         }, 
@@ -175,56 +225,19 @@
                 }
             ]
         }, 
-        "array": {
-            "begin": "\\.?([_$[:alnum:]]*)?\\[", 
-            "comment": "array scope, arrayName[.*]", 
-            "name": "meta.array.versatile", 
-            "beginCaptures": {
-                "1": {
-                    "name": "meta.array.name.versatile"
-                }
-            }, 
-            "patterns": [
-                {
-                    "include": "#core-patterns"
-                }
-            ], 
-            "end": "\\]"
-        }, 
-        "booleans": {
-            "name": "constant.language.versatile", 
-            "match": "true|false", 
-            "comment": "true or false"
-        }, 
-        "one-line-attribute": {
-            "match": "^\\s*(\\w*)\\s*\\=\\s*(\\w*)\\s*$", 
-            "comment": "hack to color lines of type, attribute = property", 
-            "captures": {
-                "2": {
-                    "name": "entity.other.attribute-name.versatile"
-                }, 
-                "1": {
-                    "name": "variable.other.versatile"
-                }
-            }
-        }, 
-        "numbers": {
-            "name": "constant.numeric.versatile", 
-            "match": "\\d"
-        }, 
         "header-string": {
+            "end": "\\\"", 
             "name": "string.quoted.double.versatile", 
             "begin": "\\\"", 
-            "end": "\\\"", 
             "patterns": [
                 {
-                    "match": "(\\$\\{[^\\}]*\\})|(\\%\\%[^\\%]*\\%\\%)", 
                     "comment": "macros inside a header string", 
+                    "match": "(\\$\\{[^\\}]*\\})|(\\%\\%[^\\%]*\\%\\%)", 
                     "captures": {
-                        "2": {
+                        "1": {
                             "name": "entity.other.attribute-name.versatile"
                         }, 
-                        "1": {
+                        "2": {
                             "name": "entity.other.attribute-name.versatile"
                         }
                     }
@@ -233,19 +246,6 @@
         }
     }, 
     "scopeName": "source.versatile", 
-    "name": "Versatile", 
-    "uuid": "5f4ef975-8f06-40c7-a78c-a6e7820644a3", 
-    "patterns": [
-        {
-            "include": "#dialects"
-        }, 
-        {
-            "include": "#headers"
-        }, 
-        {
-            "include": "#comments"
-        }
-    ], 
     "fileTypes": [
         ".config"
     ]
