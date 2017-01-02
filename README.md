@@ -6,6 +6,8 @@ This VSCode extension provides a support for Versatile language
 
 * Syntax highlighting
 
+![Alt Text](https://github.com/Swiiip/versatile-encoder/raw/master/demo.gif)
+
 ## Extension Settings
 
 None
