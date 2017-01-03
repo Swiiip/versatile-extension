@@ -1,0 +1,130 @@
+%YAML 1.2
+---
+# http://www.sublimetext.com/docs/3/syntax.html
+name: Versatile
+file_extensions:
+  - .config
+scope: source.versatile
+contexts:
+  main:
+    - include: dialects
+    - include: headers
+    - include: comments
+  array:
+    - match: '\.?([_$[:alnum:]]*)?\['
+      comment: "array scope, arrayName[.*]"
+      captures:
+        1: meta.array.name.versatile
+      push:
+        - meta_scope: meta.array.versatile
+        - match: '\]'
+          pop: true
+        - include: core-patterns
+  attribute:
+    - match: "([_$[:alpha:]][_$[:alnum:]]*)"
+      comment: base scope, attribute of an object
+      captures:
+        1: variable.other.versatile
+  booleans:
+    - match: true|false
+      comment: true or false
+      scope: constant.language.versatile
+  comments:
+    - match: '\#'
+      push:
+        - meta_scope: comment.line.number-sign.versatile
+        - match: '\#'
+          pop: true
+  core-patterns:
+    - include: function
+    - include: array
+    - include: object
+    - include: property
+    - include: numbers
+    - include: index-var
+    - include: one-line-attribute
+    - include: attribute
+    - include: booleans
+    - include: dialect-string
+    - include: comments
+  dialect-string:
+    - match: \\\"
+      comment: \"Comments inside dialect\"
+      push:
+        - meta_scope: string.interpolated.versatile
+        - match: \\\"
+          pop: true
+  dialects:
+    - match: (Decoder|Encoder)\.(Versatile|VersatileReport)(\.Dialect).*\s*:(\s*\")
+      comment: scope related to dialects (decoder, encoder, ...)
+      captures:
+        1: entity.name.type.versatile
+        2: entity.other.attribute-name.versatile
+        3: entity.name.function.versatile
+        4: entity.other.inherited-class.versatile
+      push:
+        - meta_scope: meta.dialect.versatile
+        - match: \"
+          captures:
+            0: entity.other.inherited-class.versatile
+          pop: true
+        - include: core-patterns
+        - include: comments
+  function:
+    - match: '(\??[_$[:alpha:]][_$[:alnum:]]*)\s?\('
+      comment: functions scope, functionName(.*)
+      captures:
+        1: entity.function.name.versatile
+      push:
+        - meta_content_scope: meta.function.parameters
+        - match: \)
+          pop: true
+        - include: core-patterns
+  header-string:
+    - match: \"
+      push:
+        - meta_scope: string.quoted.double.versatile
+        - match: \"
+          pop: true
+        - match: '(\$\{[^\}]*\})|(\%\%[^\%]*\%\%)'
+          comment: macros inside a header string
+          captures:
+            1: entity.other.attribute-name.versatile
+            2: entity.other.attribute-name.versatile
+  headers:
+    - match: '([^\.]*)(\.[^:]*)?[[:alnum:]]*\s*\:\s*(.*)'
+      comment: all lines but the dialect lines
+      scope: meta.headerContent.versatile
+      captures:
+        1: entity.name.type.versatile
+        2: entity.other.attribute-name.versatile
+        3: meta.headerContent.value.versatile
+  index-var:
+    - match: '(\$[_$[:alnum:]]*)'
+      comment: index $i to iterate through an array
+      scope: meta.array.index.versatile
+      captures:
+        1: keyword.control.versatile
+  numbers:
+    - match: \d
+      scope: constant.numeric.versatile
+  object:
+    - match: '\{'
+      comment: object scope
+      push:
+        - meta_scope: meta.object.versatile
+        - match: '\}'
+          pop: true
+        - include: core-patterns
+  one-line-attribute:
+    - match: ^\s*(\w*)\s*\=\s*(\w*)\s*$
+      comment: hack to color lines of type, attribute = property
+      captures:
+        1: variable.other.versatile
+        2: entity.other.attribute-name.versatile
+  property:
+    - match: '\.([_$[:alnum:]]*)'
+      comment: .someProperty
+      scope: meta.property.versatile
+      captures:
+        1: entity.other.attribute-name.versatile
