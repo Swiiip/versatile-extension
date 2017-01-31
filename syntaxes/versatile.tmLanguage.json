@@ -15,7 +15,7 @@
     "repository": {
         "numbers": {
             "name": "constant.numeric.versatile", 
-            "match": "\\d"
+            "match": "(\\d+\\.?\\d*)"
         }, 
         "comments": {
             "end": "\\#", 
@@ -139,7 +139,7 @@
             ], 
             "beginCaptures": {
                 "1": {
-                    "name": "entity.function.name.versatile"
+                    "name": "entity.name.function.versatile"
                 }
             }, 
             "comment": "functions scope, functionName(.*)", 

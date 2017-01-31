@@ -18,7 +18,8 @@
         "vscode": "^1.5.0"
     },
     "categories": [
-        "Languages"
+        "Languages",
+        "Snippets"
     ],
     "contributes": {
         "languages": [
@@ -40,6 +41,12 @@
                 "language": "versatile",
                 "scopeName": "source.versatile",
                 "path": "./syntaxes/versatile.tmLanguage.json"
+            }
+        ],
+        "snippets": [
+            {
+                "language": "versatile",
+                "path": "./snippets/versatile.json"
             }
         ]
     }

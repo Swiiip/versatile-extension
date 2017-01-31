@@ -74,7 +74,7 @@ contexts:
     - match: '(\??[_$[:alpha:]][_$[:alnum:]]*)\s?\('
       comment: functions scope, functionName(.*)
       captures:
-        1: entity.function.name.versatile
+        1: entity.name.function.versatile
       push:
         - meta_content_scope: meta.function.parameters
         - match: \)
@@ -106,7 +106,7 @@ contexts:
       captures:
         1: keyword.control.versatile
   numbers:
-    - match: \d
+    - match: (\d+\.?\d*)
       scope: constant.numeric.versatile
   object:
     - match: '\{'

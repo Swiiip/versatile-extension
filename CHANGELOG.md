@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project is documented in this file.
 
+## [0.1.2]
+- Fix a highlighting error with function name
+- Fix a highlighting error with floats
 
 ## [0.1.1] - 03 January 2017
 Update README.md
