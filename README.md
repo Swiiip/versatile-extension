@@ -21,7 +21,7 @@ Add this line to user settings to automatically colorize text when opening .conf
 
 ## Sublime text 3 install
 
-Copy `syntaxes/versatile.sublime-syntax` and `syntaxes/versatile.sublime-settings` in your `Packages/User` folder.
+Copy `src/syntaxes/versatile.sublime-syntax` and `src/syntaxes/versatile.sublime-settings` in your `Packages/User` folder.
 
 
 ## Extension Settings

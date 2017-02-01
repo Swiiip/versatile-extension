@@ -18,9 +18,22 @@
         "vscode": "^1.5.0"
     },
     "categories": [
-        "Languages",
-        "Snippets"
+        "Languages"
     ],
+    "activationEvents": [
+        "onLanguage:versatile"
+    ],
+    "devDependencies": {
+        "typescript": "^2.0.3",
+        "vscode": "^1.0.3",
+        "@types/node": "^6.0.40"
+    },
+    "main": "./out/src/extension",
+    "scripts": {
+        "vscode:prepublish": "tsc -p ./",
+        "compile": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install"
+    },
     "contributes": {
         "languages": [
             {
@@ -41,12 +54,6 @@
                 "language": "versatile",
                 "scopeName": "source.versatile",
                 "path": "./syntaxes/versatile.tmLanguage.json"
-            }
-        ],
-        "snippets": [
-            {
-                "language": "versatile",
-                "path": "./snippets/versatile.json"
             }
         ]
     }
