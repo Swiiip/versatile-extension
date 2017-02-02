@@ -1,105 +1,106 @@
 {
     "functions": {
         "equal": {
-            "pattern": "equal({{}})",
+            "pattern": "equal",
             "parameters": [
                 {
                     "name": "item1",
                     "type": "any",
-                    "description": ""
+                    "description": "First item to compare"
                 },
                 {
                     "name": "item2",
                     "type": "any",
-                    "description": ""
+                    "description": "Second item to compare"
                 },
                 {
                     "name": "...",
                     "type": "",
-                    "description": ""
+                    "description": "... additional items to compare"
                 }
             ],
             "doc": "Return true if all items are equal, false otherwise."
         },
         "if": {
-            "pattern": "if({{}})",
+            "pattern": "if",
             "parameters": [
                 {
                     "name": "test",
                     "type": "bool",
-                    "description": ""
+                    "description": "Condition"
                 },
                 {
                     "name": "item1",
                     "type": "any",
-                    "description": ""
+                    "description": "Item returned if the condition is met"
                 },
                 {
                     "name": "item2",
                     "type": "any",
-                    "description": ""
+                    "description": "Item returned if the condition is not met"
                 }
             ],
             "doc": "Returns item1 if test is true, else returns item2"
         },
         "ifelseif": {
-            "pattern": "ifelseif({{}})",
+            "pattern": "ifelseif",
             "parameters": [
                 {
                     "name": "test1",
-                    "type": "bool"
+                    "type": "bool",
+                    "description": "First condition"
                 },
                 {
                     "name": "item1",
                     "type": "any",
-                    "description": "value to return if test1 is true"
+                    "description": "Item returned if first condition is true"
                 },
                 {
                     "name": "test2",
                     "type": "bool",
-                    "description": "if test1 is false, then try test2"
+                    "description": "Second condition"
                 },
                 {
                     "name": "item2",
                     "type": "any",
-                    "description": "value to return if test2 is true"
+                    "description": "Item returned if second condition is true"
                 },
                 {
                     "name": "...",
                     "type": "",
-                    "description": "represents a custom number of pairs (test, value)"
+                    "description": "... additional test, value"
                 },
                 {
                     "name": "defaultItem",
                     "type": "any",
-                    "description": "default item if none of the previous conditions have been met"
+                    "description": "Default item if none of the previous conditions have been met"
                 }
             ],
             "doc": "Returns item1 if test1, else returns item2 if test2 and so on. Returns defaultItem if none of the tests are true."
         },
         "in": {
-            "pattern": "in({{}})",
+            "pattern": "in",
             "detail": "in(item, listItem1, listItem2, ...)",
             "parameters": [
                 {
                     "name": "item",
                     "type": "any",
-                    "description": ""
+                    "description": "Target item"
                 },
                 {
                     "name": "listItem1",
                     "type": "any",
-                    "description": ""
+                    "description": "First item of the list"
                 },
                 {
                     "name": "listItem2",
                     "type": "any",
-                    "description": ""
+                    "description": "Second item of the list"
                 },
                 {
                     "name": "...",
                     "type": "",
-                    "description": ""
+                    "description": "... any additional list items"
                 }
             ],
             "doc": "Returns true if item is part of the list [listItem1, listItem2, ...]."
@@ -110,434 +111,438 @@
             "doc": "Returns float.NaN"
         },
         "not": {
-            "pattern": "not({{}})",
+            "pattern": "not",
             "parameters": [
                 {
                     "name": "value",
                     "type": "bool",
-                    "description": ""
+                    "description": "Value to negate"
                 }
             ],
             "doc": "Returns the opposite of value"
         },
         "select": {
-            "pattern": "select({{}})",
+            "pattern": "select",
             "parameters": [
                 {
                     "name": "item",
                     "type": "any",
-                    "description": ""
+                    "description": "Target item"
                 },
                 {
                     "name": "comparisonItem1",
                     "type": "any",
-                    "description": ""
+                    "description": "First comparison item"
                 },
                 {
                     "name": "returnItem1",
                     "type": "any",
-                    "description": ""
+                    "description": "Item returned if target item is equal to first comparison item"
                 },
                 {
                     "name": "comparisonItem2",
                     "type": "any",
-                    "description": ""
+                    "description": "Second comparison item"
                 },
                 {
                     "name": "returnItem2",
                     "type": "any",
-                    "description": ""
+                    "description": "Item returned if target item is equal to second comparison item"
                 },
                 {
                     "name": "...",
                     "type": "",
-                    "description": ""
+                    "description": "... additional comparison items and return items"
                 },
                 {
                     "name": "defaultItem",
                     "type": "",
-                    "description": ""
+                    "description": "Default item if none of comparison items are equal to target item"
                 }
             ],
             "doc": "Switch cases, compares comparisonItems with item. Returns defaultItem if none of the comparisonItems are equal to item."
         },
         "slice": {
-            "pattern": "slice({{}})",
+            "pattern": "slice",
             "parameters": [
                 {
                     "name": "item",
                     "type": "string",
-                    "description": ""
+                    "description": "Target string"
                 },
                 {
                     "name": "firstCharIndex",
                     "type": "any",
-                    "description": ""
+                    "description": "Start the slicing from this index"
                 },
                 {
                     "name": "[sizeOfStringToExtract]",
                     "type": "any",
-                    "description": "Optional"
+                    "description": "Optional, size of string to extract"
                 }
             ],
             "doc": "Extracts part of a string, starting from firstCharIndex, until the end if sizeOfStringToExtract is not specified. "
         },
         "token": {
-            "pattern": "token({{}})",
+            "pattern": "token",
             "parameters": [
                 {
                     "name": "item",
                     "type": "string",
-                    "description": ""
+                    "description": "Target string"
                 },
                 {
                     "name": "delimiterCharacter",
                     "type": "char",
-                    "description": ""
+                    "description": "Delimiter character"
                 },
                 {
                     "name": "segmentIndex",
                     "type": "int",
-                    "description": ""
+                    "description": "Index of the occurence"
                 }
             ],
             "doc": "Search a section of item delimited by a specific character. The occurence is specified with segmentIndex."
         },
         "tolower": {
-            "pattern": "tolower({{}})",
+            "pattern": "tolower",
             "parameters": [
                 {
                     "name": "item",
                     "type": "string",
-                    "description": ""
+                    "description": "Target string"
                 }
             ],
             "doc": "Converts item to lower case."
         },
         "toupper": {
-            "pattern": "toupper({{}})",
+            "pattern": "toupper",
             "parameters": [
                 {
                     "name": "item",
                     "type": "string",
-                    "description": ""
+                    "description": "Target string"
                 }
             ],
             "doc": "Converts item to upper case."
         },
         "toint": {
-            "pattern": "toint({{}})",
+            "pattern": "toint",
             "parameters": [
                 {
                     "name": "item",
                     "type": "string",
-                    "description": ""
+                    "description": "Target string"
                 }
             ],
             "doc": "Converts item to int representation."
         },
         "find": {
-            "pattern": "find({{}})",
+            "pattern": "find",
             "parameters": [
                 {
                     "name": "item",
                     "type": "string",
-                    "description": ""
+                    "description": "Target string"
                 },
                 {
                     "name": "pattern",
                     "type": "string",
-                    "description": ""
+                    "description": "Search pattern"
                 }
             ],
             "doc": "Returns true if pattern is present in item."
         },
         "match": {
-            "pattern": "match({{}})",
+            "pattern": "match",
             "parameters": [
                 {
                     "name": "item",
                     "type": "string",
-                    "description": ""
+                    "description": "Target string"
                 },
                 {
                     "name": "regexPattern",
                     "type": "string",
-                    "description": ""
+                    "description": "Search regexp pattern"
                 }
             ],
             "doc": "Apply a matching using a regular expression."
         },
         "ge": {
-            "pattern": "ge({{}})",
+            "pattern": "ge",
             "parameters": [
                 {
                     "name": "item1",
                     "type": "any",
-                    "description": ""
+                    "description": "First item to compare"
                 },
                 {
                     "name": "item2",
                     "type": "any",
-                    "description": ""
+                    "description": "Second item to compare"
                 }
             ],
             "doc": "Returns true if item1 >= item2"
         },
         "gt": {
-            "pattern": "gt({{}})",
+            "pattern": "gt",
             "parameters": [
                 {
                     "name": "item1",
                     "type": "any",
-                    "description": ""
+                    "description": "First item to compare"
                 },
                 {
                     "name": "item2",
                     "type": "any",
-                    "description": ""
+                    "description": "Second item to compare"
                 }
             ],
             "doc": "Returns true if item1 > item2"
         },
         "le": {
-            "pattern": "le({{}})",
+            "pattern": "le",
             "parameters": [
                 {
                     "name": "item1",
                     "type": "any",
-                    "description": ""
+                    "description": "First item to compare"
                 },
                 {
                     "name": "item2",
                     "type": "any",
-                    "description": ""
+                    "description": "Second item to compare"
                 }
             ],
             "doc": "Returns true if item1 <= item2"
         },
         "lt": {
-            "pattern": "lt({{}})",
+            "pattern": "lt",
             "parameters": [
                 {
                     "name": "item1",
                     "type": "any",
-                    "description": ""
+                    "description": "First item to compare"
                 },
                 {
                     "name": "item2",
                     "type": "any",
-                    "description": ""
+                    "description": "Second item to compare"
                 }
             ],
             "doc": "Returns true if item1 < item2"
         },
         "concat": {
-            "pattern": "concat({{}})",
+            "pattern": "concat",
             "parameters": [
                 {
                     "name": "item1",
                     "type": "string",
-                    "description": ""
+                    "description": "First item to concatenate"
                 },
                 {
                     "name": "item2",
                     "type": "string",
-                    "description": ""
+                    "description": "Second item to concatenate"
                 },
                 {
                     "name": "...",
                     "type": "",
-                    "description": ""
+                    "description": "... additional items to concatenate"
                 }
             ],
             "doc": "Concatenate parameters into one single string."
         },
         "tonum": {
-            "pattern": "tonum({{}})",
+            "pattern": "tonum",
             "parameters": [
                 {
                     "name": "item1",
                     "type": "string",
-                    "description": ""
-                },
-                {
-                    "name": "item2",
-                    "type": "string",
-                    "description": ""
+                    "description": "Target item"
                 }
             ],
             "doc": "Converts string to a numeric representation. Returns 0 if string can't be parsed as a number."
         },
         "mul": {
-            "pattern": "mul({{}})",
+            "pattern": "mul",
             "parameters": [
                 {
                     "name": "item1",
                     "type": "number",
-                    "description": ""
+                    "description": "Left member"
                 },
                 {
                     "name": "item2",
                     "type": "number",
-                    "description": ""
+                    "description": "Right member"
                 }
             ],
             "doc": "Returns item1 x item2."
         },
         "div": {
-            "pattern": "div({{}})",
+            "pattern": "div",
             "parameters": [
                 {
                     "name": "item1",
                     "type": "number",
-                    "description": ""
+                    "description": "Numerator"
                 },
                 {
                     "name": "item2",
                     "type": "number",
-                    "description": ""
+                    "description": "Denominator"
                 }
             ],
             "doc": "Returns item1 / item2."
         },
         "add": {
-            "pattern": "add({{}})",
+            "pattern": "add",
             "parameters": [
                 {
                     "name": "item1",
                     "type": "number",
-                    "description": ""
+                    "description": "Left member"
                 },
                 {
                     "name": "item2",
                     "type": "number",
-                    "description": ""
+                    "description": "Right member"
                 }
             ],
             "doc": "Returns item1 + item2."
         },
         "abs": {
-            "pattern": "abs({{}})",
+            "pattern": "abs",
             "parameters": [
                 {
                     "name": "item",
                     "type": "number",
-                    "description": ""
+                    "description": "Target number"
                 }
             ],
             "doc": "Returns absolute value of item."
         },
         "floor": {
-            "pattern": "floor({{}})",
+            "pattern": "floor",
             "parameters": [
                 {
                     "name": "item",
                     "type": "number",
-                    "description": ""
+                    "description": "Target number"
                 }
             ],
             "doc": "Returns the floor of item."
         },
         "between": {
-            "pattern": "between({{}})",
+            "pattern": "between",
             "parameters": [
                 {
                     "name": "value",
                     "type": "number",
-                    "description": ""
+                    "description": "Target value"
                 },
                 {
                     "name": "min",
                     "type": "number",
-                    "description": ""
+                    "description": "Min value (inclusive)"
                 },
                 {
                     "name": "max",
                     "type": "number",
-                    "description": ""
+                    "description": "Max value (inclusive)"
                 }
             ],
             "doc": "Test if min <= value <= max."
         },
         "and": {
-            "pattern": "and({{}})",
+            "pattern": "and",
             "parameters": [
                 {
                     "name": "item1",
                     "type": "bool",
-                    "description": ""
+                    "description": "First boolean"
                 },
                 {
                     "name": "item2",
                     "type": "bool",
-                    "description": ""
+                    "description": "Second boolean"
                 },
                 {
                     "name": "...",
                     "type": "",
-                    "description": ""
+                    "description": "... additional booleans"
                 }
             ],
             "doc": "Returns item1 & item1 & ..."
         },
         "or": {
-            "pattern": "or({{}})",
+            "pattern": "or",
             "parameters": [
                 {
                     "name": "item1",
                     "type": "bool",
-                    "description": ""
+                    "description": "First boolean"
                 },
                 {
                     "name": "item2",
                     "type": "bool",
-                    "description": ""
+                    "description": "Second boolean"
                 },
                 {
                     "name": "...",
                     "type": "",
-                    "description": ""
+                    "description": "... additional booleans"
                 }
             ],
             "doc": "Returns item1 | item2 | ..."
         },
         "replace": {
-            "pattern": "replace({{}})",
+            "pattern": "replace",
             "parameters": [
                 {
                     "name": "item",
                     "type": "string",
-                    "description": ""
+                    "description": "Target string"
                 },
                 {
-                    "name": "regex",
+                    "name": "regexp",
                     "type": "string",
-                    "description": ""
+                    "description": "String representing search pattern"
                 },
                 {
                     "name": "replacementString",
                     "type": "string",
-                    "description": ""
+                    "description": "String to replace occurences matched by regexp"
                 }
             ],
             "doc": "Replace occurences matched by regex in item with replacementString."
         },
         "split": {
-            "pattern": "split({{}})",
+            "pattern": "split",
             "parameters": [
                 {
                     "name": "separator",
                     "type": "string",
-                    "description": ""
+                    "description": "Separator chararcter"
                 },
                 {
                     "name": "item",
                     "type": "string",
-                    "description": ""
+                    "description": "Target string"
                 }
             ],
             "doc": "Split item according to separator."
+        }
+    },
+
+    "encoderParameters": {
+        "requestid": {
+            "description": "Unique ID of the bid request, provided by the exchange"
+        },
+        "publisherid": {
+            "description": "Can be Site ID in case of web request or app.id in case of In-App request"
         }
     }
 }
