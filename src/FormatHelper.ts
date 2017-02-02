@@ -1,4 +1,3 @@
-import { DocumentFormattingEditProvider } from 'vscode';
 import {versatile} from './VersatileFunction'
 
 export function generateDefinitionString(functionName: string, params: versatile.FunctionParameter[]): string {

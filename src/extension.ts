@@ -4,7 +4,7 @@ import * as vscode from 'vscode';
 import { VersatileSignatureHelpProvider } from './VersatileSignatureHelpProvider'
 import { versatile } from './VersatileFunction'
 import { Parser } from './Parser'
-import {generateDefinitionString, formatParameter} from './SignatureHelper'
+import {generateDefinitionString, formatParameter} from './FormatHelper'
 import * as fs from 'fs' // file system
 
 export function activate(context: vscode.ExtensionContext) {
