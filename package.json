@@ -1,60 +1,61 @@
 {
-    "name": "versatile",
-    "displayName": "Versatile",
-    "description": "Versatile language support",
-    "version": "0.1.0",
-    "publisher": "swiip",
-    "homepage": "https://github.com/Swiiip/versatile-extension/README.md",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/Swiiip/versatile-extension.git"
-    },
-    "icon": "criteo-logo.svg",
-    "galleryBanner": {
-        "color": "#5c2d91",
-        "theme": "dark"
-    },
-    "engines": {
-        "vscode": "^1.5.0"
-    },
-    "categories": [
-        "Languages"
-    ],
-    "activationEvents": [
-        "onLanguage:versatile"
-    ],
-    "devDependencies": {
-        "typescript": "^2.0.3",
-        "vscode": "^1.0.3",
-        "@types/node": "^6.0.40"
-    },
-    "main": "./out/src/extension",
-    "scripts": {
-        "vscode:prepublish": "tsc -p ./",
-        "compile": "tsc -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install"
-    },
-    "contributes": {
-        "languages": [
-            {
-                "id": "versatile",
-                "aliases": [
-                    "Versatile",
-                    "versatile"
-                ],
-                "extensions": [
-                    ".config"
-                ],
-                "configuration": "./language-configuration.json",
-                "firstLine": "^([^\\.]*)(\\.[^:]*)?[[:alnum:]]*\\s*\\:\\s*(.*)$"
-            }
+  "name": "versatile",
+  "displayName": "Versatile",
+  "description": "Versatile language support",
+  "version": "0.1.0",
+  "publisher": "swiip",
+  "homepage": "https://github.com/Swiiip/versatile-extension/README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Swiiip/versatile-extension.git"
+  },
+  "icon": "criteo-logo.svg",
+  "galleryBanner": {
+    "color": "#5c2d91",
+    "theme": "dark"
+  },
+  "engines": {
+    "vscode": "^1.5.0"
+  },
+  "categories": [
+    "Languages"
+  ],
+  "activationEvents": [
+    "onLanguage:versatile"
+  ],
+  "devDependencies": {
+    "@types/node": "^6.0.40",
+    "jison": "^0.4.17",
+    "typescript": "^2.0.3",
+    "vscode": "^1.0.3"
+  },
+  "main": "./out/src/extension",
+  "scripts": {
+    "vscode:prepublish": "tsc -p ./",
+    "compile": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "versatile",
+        "aliases": [
+          "Versatile",
+          "versatile"
         ],
-        "grammars": [
-            {
-                "language": "versatile",
-                "scopeName": "source.versatile",
-                "path": "./syntaxes/versatile.tmLanguage.json"
-            }
-        ]
-    }
+        "extensions": [
+          ".config"
+        ],
+        "configuration": "./language-configuration.json",
+        "firstLine": "^([^\\.]*)(\\.[^:]*)?[[:alnum:]]*\\s*\\:\\s*(.*)$"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "versatile",
+        "scopeName": "source.versatile",
+        "path": "./syntaxes/versatile.tmLanguage.json"
+      }
+    ]
+  }
 }

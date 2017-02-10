@@ -1,19 +1,31 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
     "version": "0.1.0",
-    "command": "npm",
-    "args": [
-		"run"
-	],
-    "isShellCommand": true,
-    "showOutput": "always",
-    "suppressTaskName": true,
-    "echoCommand": true,
     "tasks": [
         {
             "taskName": "prepublish",
-            "args": ["vscode:prepublish"]
+            "command": "npm",
+            "args": ["run", "vscode:prepublish"],
+            "isShellCommand": true,
+            "isBackground": true,
+            "echoCommand": true
+        },
+        {
+            "taskName": "playground",
+            "command": "node",
+            "args": ["${workspaceRoot}/out/src/playground/mainParser.js"],
+            "isShellCommand": true,
+            "isBackground": true,
+            "echoCommand": true,
+            "isBuildCommand": false
+        },
+        {
+            "taskName": "parse all configs",
+            "command": "node",
+            "args": ["${workspaceRoot}/out/src/playground/configsParser.js"],
+            "isShellCommand": true,
+            "isBackground": true,
+            "echoCommand": true,
+            "isBuildCommand": true
         }
     ]
 }
