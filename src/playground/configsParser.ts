@@ -14,13 +14,14 @@ function main() {
             files.forEach((file) => {
                 let absoluteFileDir = path.join(configsDirectory, file)
                 let text = fs.readFileSync(absoluteFileDir, "utf8")
-                try {
+                    console.log("start parsing " + file + " ...")
                     let parseResult = parser.parse(text)
-                    filesScanned++
-                } catch (error) {
-                    console.log("ERROR while parsing " + file + ". Files scanned: (" + filesScanned + "/" + files.length + ")")
-                    throw error
-                }
+                    if (parseResult) {
+                        filesScanned++
+                        console.log("... success")
+
+                    } else
+                        console.log("ERROR while parsing " + file + ". Files scanned: (" + filesScanned + "/" + files.length + ")")
             })
 
             console.log("All config files successfully parsed")
