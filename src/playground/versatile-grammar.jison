@@ -11,33 +11,32 @@ Macro                               "${".*"}"
 %s dialect
 
 %%
-<INITIAL>\n\s*                       return "NEWLINE";
-[^\S\n]+                             /* ignore whitespace other than newlines */
-"true"                               return "TRUE";
-"false"                              return "FALSE";
-<INITIAL>(?:".Dialect"[\w.]*\s*":"\s*)(["])               console.log("DIALECTBEGIN"); this.begin("dialect"); return "DIALECTBEGIN"
-<dialect>{EscapedStringConstant}     console.log("ESCAPEDSTRINGCONSTANT"); return "ESCAPEDSTRINGCONSTANT";
-<dialect>\n\s*                       /*ignore whitespaces in dialect*/
-<dialect>["](?!.*["])                console.log("DIALECTBEGIN"); this.popState(); return "DIALECTEND"
-"("                                   console.log("("); return "(";
-")"                                   return ")";
-"["                                   return "[";
-"]"                                   return "]";
-"{"                                   return "{";
-"}"                                   return "}";
-"="                                   console.log("="); return "=";
-","                                   return ",";
-"!"                                   return "!";
-"?"                                   return "?";
-":"                                   return ":";
-"."                                   console.log("."); return ".";
-{Identifier}                          console.log("IDENTIFIER"); return "IDENTIFIER";
-<INITIAL>{StringConstant}             console.log("STRINGCONSTANT"); return "STRINGCONSTANT";
-{NumberConstant}                      console.log("NUMBERCONSTANT"); return "NUMBERCONSTANT";
-{Index}                               console.log("INDEX"); return "INDEX";
-{Macro}                   console.log("MACRO"); return "MACRO";
-{Comment}                            /* do nothing */
-<<EOF>>                              console.log("EOF"); return "EOF";
+<INITIAL>\n\s*                                  return "NEWLINE";
+[^\S\n]+                                        /* ignore whitespace other than newlines */
+"true"                                          return "TRUE";
+"false"                                         return "FALSE";
+<INITIAL>(?:".Dialect"[\w.]*\s*":"\s*)(["])     this.begin("dialect"); return "DIALECTBEGIN"
+<dialect>{EscapedStringConstant}                return "ESCAPEDSTRINGCONSTANT";
+<dialect>\n\s*                                  /* ignore whitespaces in dialect */
+<dialect>["](?!.*["])                           this.popState(); return "DIALECTEND"
+"("                                             return "(";
+")"                                             return ")";
+"["                                             return "[";
+"]"                                             return "]";
+"{"                                             return "{";
+"}"                                             return "}";
+"="                                             return "=";
+","                                             return ",";
+"?"                                             return "?";
+":"                                             return ":";
+"."                                             return ".";
+{Identifier}                                    return "IDENTIFIER";
+<INITIAL>{StringConstant}                       return "STRINGCONSTANT";
+{NumberConstant}                                return "NUMBERCONSTANT";
+{Index}                                         return "INDEX";
+{Macro}                                         return "MACRO";
+{Comment}                                       /* ignore comments */
+<<EOF>>                                         return "EOF";
 
 /lex
 
@@ -58,7 +57,7 @@ configuration
     ;
 
 configuration-dialect
-    : member DIALECTBEGIN field* DIALECTEND NEWLINE? {$$ = {type:"configuration-dialect", key: $1, dialect: $3}}
+    : member DIALECTBEGIN assignment* DIALECTEND NEWLINE? {$$ = {type:"configuration-dialect", key: $1, dialect: $3}}
     ;
 
 member
@@ -79,15 +78,15 @@ definitions
     ;
 
 definition
-    : "{" field* "}" {$$ = {type:"definition", fields: $2}}
+    : "{" assignment* "}" {$$ = {type:"definition", assignments: $2}}
     ;
 
-field
-    : member "[" INDEX "]" "=" (definition|directive) {$$ = {type:"field-array-iteration", arrayName: $1, arrayIndex: $3, arrayIteration: $6}}
-    | member "=" expression {$$ = {type:"field", fieldName: $1, fieldValue: $3}}
-    | member "=" "[" expression+ "]" {$$ = {type:"field", fieldName: $1, fieldValue: $3}}
-    | member "=" (definition|directive) {$$ = {type:"field", fieldName: $1, fieldValue: $3}}
-    | member "=" "[" definition* "]" {$$ = {type:"field", fieldName: $1, fieldValue: $4}}
+assignment
+    : member "[" INDEX "]" "=" (definition|directive) {$$ = {type:"assignment-array-iteration", arrayName: $1, arrayIndex: $3, arrayIteration: $6}}
+    | member "=" expression {$$ = {type:"assignment", leftMember: $1, rightMember: $3}}
+    | member "=" "[" expression+ "]" {$$ = {type:"assignment", leftMember: $1, rightMember: $3}}
+    | member "=" (definition|directive) {$$ = {type:"assignment", leftMember: $1, rightMember: $3}}
+    | member "=" "[" definition* "]" {$$ = {type:"assignment", leftMember: $1, rightMember: $4}}
     ;
 
 name
